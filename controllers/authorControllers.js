@@ -16,8 +16,15 @@ const addAuthors = async (req, res) => {
   if (!Array.isArray(authors) || authors.length === 0) {
     return res.status(400).json({ message: "Invalid author data" });
   }
+  const updatedAuthors = authors.map((author) => {
+    const cleaned = cleanTheString(author?.name);
+    return {
+      ...author,
+      normalized_name: cleaned,
+    };
+  });
   try {
-    await Author.insertMany(authors);
+    await Author.insertMany(updatedAuthors);
     return res.status(200).json({ message: "All books added successfully" });
   } catch (error) {
     console.log(error);

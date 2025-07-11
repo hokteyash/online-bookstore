@@ -6,6 +6,11 @@ const bookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    normalized_title: {
+      type: String,
+      required: true,
+      index: true, // for faster search
+    },
     description: {
       type: String,
       required: true,

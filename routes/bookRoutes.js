@@ -7,12 +7,16 @@ const {
   addBooks,
   updateBook,
   deleteBook,
+  getBooksByCategory,
+  searchBook,
 } = require("../controllers/bookControllers");
 const router = express.Router();
 
 // public routes
 router.get("/", getAllBooks);
 router.get("/:id", getIndividualBook);
+router.get("/:category_id", getBooksByCategory);
+router.get("/search", searchBook);
 
 // protected routes for admin
 router.post("/", validateToken, isAdmin, addBooks);

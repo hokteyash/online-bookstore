@@ -1,4 +1,5 @@
 const Book = require("../models/book");
+const { cleanTheString } = require("../utility/util");
 
 const getAllBooks = async (req, res) => {
   try {
@@ -24,15 +25,70 @@ const getIndividualBook = async (req, res) => {
   }
 };
 
+const getBooksByCategory = async (req, res) => {
+  const category_id = req.params.id;
+  try {
+    const allSearchedCategoryBook = await Book.find({ category_id });
+    return res.status(200).json({ allSearchedCategoryBook });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal Server error" });
+  }
+};
+
+const searchBook = async (req, res) => {
+  const { query } = req.query;
+
+  // Validate query
+  if (!query || query.trim() === "") {
+    return res.status(400).json({ message: "Search query is required" });
+  }
+
+  // Normalize the query string
+  const normalizedQuery = cleanTheString(query);
+
+  try {
+    // Find authors whose normalized name matches the query
+    const matchingAuthors = await Author.find({
+      normalized_name: {
+        $regex: normalizedQuery,
+        $options: "i",
+      },
+    });
+
+    const authorIds = matchingAuthors.map((author) => author._id);
+
+    // Find books where normalized title matches OR author is in matchingAuthors
+    const books = await Book.find({
+      $or: [
+        { normalized_title: { $regex: normalizedQuery, $options: "i" } },
+        { author_id: { $in: authorIds } },
+      ],
+    }).populate("author_id");
+
+    return res.status(200).json(books);
+  } catch (error) {
+    console.error("Search error:", error);
+    return res.status(500).json({ message: "Search failed" });
+  }
+};
+
 const addBooks = async (req, res) => {
   const books = req.body;
   if (!Array.isArray(books) || books.length === 0) {
     return res.status(400).json({ message: "Invalid book data" });
   }
+  const updatedBooks = books.map((book) => {
+    const cleaned = cleanTheString(book?.title);
+    return {
+      ...book,
+      normalized_title: cleaned,
+    };
+  });
   try {
     // Two ways to add multiple data
     // await Promise.all(books.map(book => Book.create(book)));
-    await Book.insertMany(books);
+    await Book.insertMany(updatedBooks);
     return res.status(200).json({ message: "All books added successfully" });
   } catch (error) {
     console.log(error);
@@ -47,12 +103,10 @@ const updateBook = async (req, res) => {
     const updatedBook = await Book.findByIdAndUpdate(id, book, {
       new: true,
     });
-    return res
-      .status(200)
-      .json({
-        message: `Book updated successfully named ${updatedBook?.title}`,
-        updatedBook,
-      });
+    return res.status(200).json({
+      message: `Book updated successfully named ${updatedBook?.title}`,
+      updatedBook,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal Server error" });
@@ -78,4 +132,6 @@ module.exports = {
   addBooks,
   updateBook,
   deleteBook,
+  getBooksByCategory,
+  searchBook,
 };

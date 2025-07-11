@@ -5,6 +5,11 @@ const authorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  normalize_name:{
+    type:String,
+    required:true,
+    index:true // for faster search
+  },
   bio: {
     type: String,
   },
