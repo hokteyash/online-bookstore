@@ -8,7 +8,6 @@ const bookSchema = new mongoose.Schema(
     },
     normalized_title: {
       type: String,
-      required: true,
       index: true, // for faster search
     },
     description: {

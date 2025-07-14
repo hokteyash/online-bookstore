@@ -1,5 +1,6 @@
 const Author = require("../models/author");
 const Book = require("../models/book");
+const { cleanTheString } = require("../utility/util");
 
 const getAllAuthors = async (req, res) => {
   try {
@@ -20,7 +21,7 @@ const addAuthors = async (req, res) => {
     const cleaned = cleanTheString(author?.name);
     return {
       ...author,
-      normalized_name: cleaned,
+      normalize_name: cleaned,
     };
   });
   try {
@@ -64,7 +65,9 @@ const deleteAuthor = async (req, res) => {
         },
       }
     );
-    return res.status(200).json({ message: "Author deleted successfully" });
+    return res
+      .status(200)
+      .json({ message: "Author deleted successfully", author });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal Server error" });

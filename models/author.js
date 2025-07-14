@@ -8,7 +8,6 @@ const authorSchema = new mongoose.Schema(
     },
     normalize_name: {
       type: String,
-      required: true,
       index: true, // for faster search
     },
     bio: {
