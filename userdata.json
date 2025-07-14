@@ -1,0 +1,15 @@
+{
+    "name": "Hokte",
+    "email": "hokte@gmail.com",
+    "phone_no": 1234567890,
+    "password": "123456",
+    "role": "admin",
+    "address": {
+        "street_name": "Dev Bhawan",
+        "house_no": 10,
+        "pincode": 1234,
+        "city": "Delhi",
+        "state": "MP",
+        "country": "India"
+    }
+}

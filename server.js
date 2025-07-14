@@ -11,7 +11,7 @@ app.use(bodyParser.json()); // to parse the incoming body request
 
 const authRoutes = require("./routes/authRoutes");
 const bookRoutes = require("./routes/bookRoutes");
-const authorRoutes = require("./routes/authRoutes");
+const authorRoutes = require("./routes/authorRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 

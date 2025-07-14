@@ -1,5 +1,4 @@
 const express = require("express");
-const { validateToken } = require("../middlewares/validateToken");
 const { isAdmin } = require("../middlewares/isAdmin");
 const {
   getAllAuthors,
@@ -7,6 +6,7 @@ const {
   updateAuthor,
   deleteAuthor,
 } = require("../controllers/authorControllers");
+const validateToken = require("../middlewares/validateToken");
 const router = express.Router();
 
 router.get("/", validateToken, isAdmin, getAllAuthors);

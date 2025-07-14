@@ -30,7 +30,7 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  const { name, email, password, phone_no, address } = req.body;
+  const { name, email, password, phone_no, address, role } = req.body;
   try {
     const user = await User.findOne({ email });
     console.log(user);
@@ -44,6 +44,7 @@ const register = async (req, res) => {
       password: hashPassword,
       phone_no,
       address,
+      role,
     });
     console.log(newUser);
     const payload = {

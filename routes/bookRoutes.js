@@ -1,5 +1,4 @@
 const express = require("express");
-const { validateToken } = require("../middlewares/validateToken");
 const { isAdmin } = require("../middlewares/isAdmin");
 const {
   getAllBooks,
@@ -10,6 +9,7 @@ const {
   getBooksByCategory,
   searchBook,
 } = require("../controllers/bookControllers");
+const validateToken = require("../middlewares/validateToken");
 const router = express.Router();
 
 // public routes

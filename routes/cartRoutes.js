@@ -1,11 +1,11 @@
 const express = require("express");
-const { validateToken } = require("../middlewares/validateToken");
 const {
   getCart,
   increaseCart,
   decreaseCart,
   clearCart,
 } = require("../controllers/cartControllers");
+const validateToken = require("../middlewares/validateToken");
 
 const router = express.Router();
 
