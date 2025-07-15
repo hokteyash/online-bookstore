@@ -47,13 +47,16 @@ const orderSchema = new mongoose.Schema({
         default:'pending'
     },
     paidAt:{
-        type:Date
+        type:Date,
+        default:null
     },
     shippedAt:{
-        type:Date
+        type:Date,
+        default:null
     },
     deliveredAt:{
-        type:Date
+        type:Date,
+        default:null
     }
 },{
     timestamps:true,

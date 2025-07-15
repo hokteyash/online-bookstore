@@ -20,6 +20,6 @@ router.post("/orders/pay/:id", validateToken, paymentHappening); // pay for orde
 // admin routes
 router.get("/admin/orders/", validateToken, isAdmin, adminViewAllOrders); // admin can view all orders of everyone with filters
 router.put("/admin/orders/:id", validateToken, isAdmin, updateOrderStatus); // admin can update order status (e.g: Shipped, Delivered)
-// Body: { order_status: "shipped" } for the above route
+// Body: { order_status: "shipped" } for the above route also need to update "shippedAt and deliveredAt field" in the "order" model
 
 module.exports = router;
