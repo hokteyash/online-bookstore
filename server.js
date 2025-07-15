@@ -14,6 +14,7 @@ const bookRoutes = require("./routes/bookRoutes");
 const authorRoutes = require("./routes/authorRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 const PORT = process.env.PORT;
 
@@ -22,6 +23,7 @@ app.use("/api/books", bookRoutes);
 app.use("/api/author", authorRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api", orderRoutes);
 
 const startServer = async () => {
   try {
