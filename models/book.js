@@ -35,6 +35,7 @@ const bookSchema = new mongoose.Schema(
     },
     publication_year: {
       type: Number,
+      required:true
     },
     stock: {
       type: Number,
@@ -46,6 +47,7 @@ const bookSchema = new mongoose.Schema(
     },
     publisher: {
       type: String,
+      required:true
     },
     cover_image: {
       type: String,

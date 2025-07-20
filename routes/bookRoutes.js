@@ -14,9 +14,9 @@ const router = express.Router();
 
 // public routes
 router.get("/", getAllBooks);
-router.get("/:id", getIndividualBook);
-router.get("/:category_id", getBooksByCategory);
 router.get("/search", searchBook);
+router.get("/:id", getIndividualBook);
+router.get("/searchBookByCategory/:category_id", getBooksByCategory);
 
 // protected routes for admin
 router.post("/", validateToken, isAdmin, addBooks);

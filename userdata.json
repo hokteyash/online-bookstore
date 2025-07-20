@@ -1,4 +1,4 @@
-{
+[{
     "name": "Hokte",
     "email": "hokte@gmail.com",
     "phone_no": 1234567890,
@@ -12,4 +12,18 @@
         "state": "MP",
         "country": "India"
     }
-}
+},
+{
+    "title": "Chamber of Secrets",
+    "description": "The second instalment of boy wizard Harry Potter's adventures at Hogwarts School of Witchcraft and Wizardry, based on the novel by JK Rowling",
+    "author_id": "6874968d1db3ce571c4b427d",
+    "price": 355,
+    "category_id": "687493a8514359934b97146a",
+    "no_of_pages": 120,
+    "publication_year": 2002,
+    "stock": 7,
+    "language": "English",
+    "publisher": "Bloomsbury",
+    "cover_image": "https://media.harrypotterfanzone.com/chamber-of-secrets-us-childrens-edition-600x0-c-default.jpg"
+  }
+]

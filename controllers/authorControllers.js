@@ -26,7 +26,7 @@ const addAuthors = async (req, res) => {
   });
   try {
     await Author.insertMany(updatedAuthors);
-    return res.status(200).json({ message: "All books added successfully" });
+    return res.status(200).json({ message: "All Authors added successfully" }); 
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal Server Error" });

@@ -1,5 +1,6 @@
 const Book = require("../models/book");
 const { cleanTheString } = require("../utility/util");
+const Author = require("../models/author")
 
 const getAllBooks = async (req, res) => {
   try {
@@ -26,7 +27,8 @@ const getIndividualBook = async (req, res) => {
 };
 
 const getBooksByCategory = async (req, res) => {
-  const category_id = req.params.id;
+  const category_id = req.params.category_id;
+  console.log(category_id);
   try {
     const allSearchedCategoryBook = await Book.find({ category_id });
     return res.status(200).json({ allSearchedCategoryBook });
@@ -50,7 +52,7 @@ const searchBook = async (req, res) => {
   try {
     // Find authors whose normalized name matches the query
     const matchingAuthors = await Author.find({
-      normalized_name: {
+      normalize_name: {
         $regex: normalizedQuery,
         $options: "i",
       },
