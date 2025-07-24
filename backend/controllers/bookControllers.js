@@ -1,11 +1,11 @@
 const Book = require("../models/book");
 const { cleanTheString } = require("../utility/util");
-const Author = require("../models/author")
+const Author = require("../models/author");
 
 const getAllBooks = async (req, res) => {
   try {
-    const allBook = await Book.find();
-    return res.status(200).json({ allBook });
+    const books = await Book.find().populate("author_id", "name");
+    return res.status(200).json(books);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Internal Server error" });
@@ -15,7 +15,7 @@ const getAllBooks = async (req, res) => {
 const getIndividualBook = async (req, res) => {
   const id = req.params.id;
   try {
-    const bookDetail = await Book.findById(id);
+    const bookDetail = await Book.findById(id); 
     if (!bookDetail) {
       return res.status(404).json({ message: "Book not found!!" });
     }
