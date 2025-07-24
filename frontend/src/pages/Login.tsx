@@ -3,11 +3,16 @@ import { useState } from "react";
 import Input from "../components/Input"; // assuming you already have the reusable Input component
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../app/store";
+import { loginSuccess } from "../app/authSlice";
+import api from "../services/api";
 
 export default function Login() {
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,11 +21,13 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log(formData);
     try {
-      const res = await axios.post("/api/auth/login", formData, {
+      const res = await api.post("auth/login", formData, {
         withCredentials: true,
       });
       console.log("Login successful", res.data);
+      dispatch(loginSuccess(res.data));
       navigate("/"); // navigate to home or dashboard
     } catch (err: any) {
       console.log(err);

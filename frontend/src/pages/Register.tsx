@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import Input from "../components/Input";
 import api from "../services/api";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../app/store";
+import { loginSuccess } from "../app/authSlice";
+import { useNavigate } from "react-router-dom";
 
 interface RegisterForm {
   name: string;
@@ -35,6 +39,8 @@ const Register: React.FC = () => {
 
   const [errors, setErrors] = useState<any>({});
   const [apiError, setApiError] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -81,8 +87,9 @@ const Register: React.FC = () => {
 
     try {
       const res = await api.post("/auth/register", form);
-      alert("Registered successfully!");
       console.log("Success:", res.data);
+      dispatch(loginSuccess(res.data));
+      navigate("/");
       // Optionally redirect to login page here
     } catch (err: any) {
       setApiError(err.response?.data?.message || "Registration failed");

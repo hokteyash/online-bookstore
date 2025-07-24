@@ -6,6 +6,7 @@ const app = express();
 require("dotenv").config();
 
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 app.use(bodyParser.json()); // to parse the incoming body request
 
@@ -18,6 +19,12 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const PORT = process.env.PORT;
 
+app.use(
+  cors({
+    origin: "http://localhost:5173", // allow frontend origin
+    credentials: true, // allow cookies if you're using them
+  })
+);
 app.use("/api/auth", authRoutes);
 app.use("/api/books", bookRoutes);
 app.use("/api/author", authorRoutes);
