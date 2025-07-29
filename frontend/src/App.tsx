@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Home from "./pages/Home";
+import BookDetails from "./pages/BookDetails";
 
 const App = () => {
   return (
@@ -14,6 +15,14 @@ const App = () => {
         element={
           <PrivateRoute>
             <Home />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/book/:bookId"
+        element={
+          <PrivateRoute>
+            <BookDetails />
           </PrivateRoute>
         }
       />

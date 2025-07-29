@@ -15,7 +15,7 @@ const getAllBooks = async (req, res) => {
 const getIndividualBook = async (req, res) => {
   const id = req.params.id;
   try {
-    const bookDetail = await Book.findById(id); 
+    const bookDetail = await Book.findById(id).populate("author_id", "name");
     if (!bookDetail) {
       return res.status(404).json({ message: "Book not found!!" });
     }
