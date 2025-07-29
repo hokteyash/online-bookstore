@@ -30,7 +30,10 @@ const getBooksByCategory = async (req, res) => {
   const category_id = req.params.category_id;
   console.log(category_id);
   try {
-    const allSearchedCategoryBook = await Book.find({ category_id });
+    const allSearchedCategoryBook = await Book.find({ category_id }).populate(
+      "author_id",
+      "name"
+    );
     return res.status(200).json({ allSearchedCategoryBook });
   } catch (error) {
     console.log(error);
