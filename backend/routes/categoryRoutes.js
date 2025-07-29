@@ -9,7 +9,7 @@ const {
 const validateToken = require("../middlewares/validateToken");
 const router = express.Router();
 
-router.get("/", validateToken, isAdmin, getAllCategory);
+router.get("/", validateToken, getAllCategory);
 router.post("/", validateToken, isAdmin, addCategories);
 router.put("/:id", validateToken, isAdmin, updateCategory);
 router.delete("/:id", validateToken, isAdmin, deleteCategory);
